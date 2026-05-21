@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import heroImg from "@/assets/hero.png";
 import { useLivePrice } from "@/hooks/use-live-price";
 import { ASSETS } from "@/lib/assets";
+import { scrollToId } from "@/lib/scroll";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -277,7 +278,7 @@ export function Hero() {
             >
               Borrow against BTC, ETH, and 40+ digital assets at rates from{" "}
               <span className="font-semibold text-foreground">5.9% APR</span>. Keep your upside,
-              access cash on demand â€” secured by institutional-grade custody.
+              access cash on demand — secured by institutional-grade custody.
             </motion.p>
 
             {/* CTAs */}
@@ -288,6 +289,7 @@ export function Hero() {
             >
               <Button
                 size="lg"
+                onClick={() => scrollToId("borrow")}
                 className="group relative h-[3.25rem] w-full overflow-hidden rounded-2xl border-0 bg-gradient-to-r from-emerald-300 via-emerald-400 to-sky-400 px-8 text-[15px] font-semibold tracking-[-0.01em] text-slate-950 btn-primary-glow transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] sm:w-auto"
               >
                 <span className="relative z-10 flex items-center justify-center">
@@ -302,12 +304,14 @@ export function Hero() {
               <Button
                 size="lg"
                 variant="outline"
+                onClick={() => scrollToId("rates")}
                 className="h-[3.25rem] w-full rounded-2xl border-white/12 bg-white/[0.04] px-7 text-[15px] font-medium tracking-[-0.01em] text-foreground/90 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-white/[0.08] sm:w-auto"
               >
                 View Rates
               </Button>
               <button
                 type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent("lumen:open-demo"))}
                 className="group inline-flex items-center justify-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:ml-1"
               >
                 <span className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/5 transition-all group-hover:border-white/20 group-hover:bg-white/10">

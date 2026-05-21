@@ -10,7 +10,7 @@ const metrics = [
 
 export function TrustMetrics() {
   return (
-    <section className="relative py-20">
+    <section id="about" className="relative py-20">
       <div className="mx-auto max-w-6xl px-5">
         <div className="glass-strong grid grid-cols-2 gap-px overflow-hidden rounded-3xl bg-white/5 md:grid-cols-4">
           {metrics.map((m, i) => (

@@ -3,13 +3,14 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { WalletButton } from "@/components/wallet/wallet-button";
+import { Link } from "@tanstack/react-router";
+import { scrollToId } from "@/lib/scroll";
 
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "Borrow", href: "#borrow" },
-  { label: "Assets", href: "#assets" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Blog", href: "#blog" },
+  { label: "Home", id: "home" },
+  { label: "Products", id: "assets" },
+  { label: "Company", id: "about" },
+  { label: "Resources", id: "faq" },
 ];
 
 export function Navbar() {
@@ -23,7 +24,14 @@ export function Navbar() {
     >
       <div className="mx-auto mt-4 w-[95%] max-w-6xl">
         <div className="glass flex items-center justify-between rounded-2xl px-4 py-3 sm:px-6">
-          <a href="#home" className="flex items-center gap-2">
+          <a
+            href="#home"
+            className="flex items-center gap-2"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToId("home");
+            }}
+          >
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-emerald-400 via-sky-400 to-violet-500 text-[15px] font-bold text-slate-950 shadow-lg">
               L
             </span>
@@ -34,7 +42,11 @@ export function Navbar() {
             {links.map((l) => (
               <a
                 key={l.label}
-                href={l.href}
+                href={`#${l.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToId(l.id);
+                }}
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {l.label}
@@ -43,11 +55,11 @@ export function Navbar() {
           </nav>
 
           <div className="hidden items-center gap-2 md:flex">
-            <Button variant="ghost" className="text-foreground/80 hover:text-foreground">
-              Login
+            <Button asChild variant="ghost" className="text-foreground/80 hover:text-foreground">
+              <Link to="/login">Login</Link>
             </Button>
-            <Button className="bg-gradient-to-r from-emerald-400 to-sky-500 font-medium text-slate-950 hover:opacity-90">
-              Get Started
+            <Button asChild className="bg-gradient-to-r from-emerald-400 to-sky-500 font-medium text-slate-950 hover:opacity-90">
+              <Link to="/signup">Get Started</Link>
             </Button>
             <WalletButton />
           </div>
@@ -70,17 +82,27 @@ export function Navbar() {
             {links.map((l) => (
               <a
                 key={l.label}
-                href={l.href}
-                onClick={() => setOpen(false)}
+                href={`#${l.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToId(l.id);
+                  setOpen(false);
+                }}
                 className="rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground"
               >
                 {l.label}
               </a>
             ))}
             <div className="mt-2 flex gap-2 px-1">
-              <Button variant="ghost" className="flex-1">Login</Button>
-              <Button className="flex-1 bg-gradient-to-r from-emerald-400 to-sky-500 text-slate-950">
-                Get Started
+              <Button asChild variant="ghost" className="flex-1">
+                <Link to="/login" onClick={() => setOpen(false)}>
+                  Login
+                </Link>
+              </Button>
+              <Button asChild className="flex-1 bg-gradient-to-r from-emerald-400 to-sky-500 text-slate-950">
+                <Link to="/signup" onClick={() => setOpen(false)}>
+                  Get Started
+                </Link>
               </Button>
             </div>
             <div className="mt-3 px-1">

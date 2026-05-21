@@ -1,17 +1,32 @@
 import { Github, Twitter, Linkedin } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { scrollToId } from "@/lib/scroll";
 
-const cols = [
+const cols: { title: string; links: { label: string; href: string; kind?: "route" | "scroll" }[] }[] = [
   {
     title: "Product",
-    links: ["Borrow", "Earn", "Card", "Exchange", "API"],
+    links: [
+      { label: "Home", href: "#home", kind: "scroll" },
+      { label: "Borrow", href: "#borrow", kind: "scroll" },
+      { label: "Supported assets", href: "#assets", kind: "scroll" },
+      { label: "Rates", href: "#rates", kind: "scroll" },
+    ],
   },
   {
     title: "Company",
-    links: ["About", "Careers", "Press", "Blog", "Security"],
+    links: [
+      { label: "About", href: "#about", kind: "scroll" },
+      { label: "Security", href: "#about", kind: "scroll" },
+    ],
   },
   {
     title: "Resources",
-    links: ["Help center", "Status", "Tax docs", "Audits", "Sitemap"],
+    links: [
+      { label: "FAQ", href: "#faq", kind: "scroll" },
+      { label: "Blog", href: "#faq", kind: "scroll" },
+      { label: "Login", href: "/login", kind: "route" },
+      { label: "Create account", href: "/signup", kind: "route" },
+    ],
   },
 ];
 
@@ -49,13 +64,26 @@ export function Footer() {
               <p className="text-sm font-semibold">{c.title}</p>
               <ul className="mt-4 space-y-2.5">
                 {c.links.map((l) => (
-                  <li key={l}>
-                    <a
-                      href="#"
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {l}
-                    </a>
+                  <li key={l.label}>
+                    {l.kind === "route" ? (
+                      <Link
+                        to={l.href}
+                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        {l.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={l.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          scrollToId(l.href.replace("#", ""));
+                        }}
+                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        {l.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

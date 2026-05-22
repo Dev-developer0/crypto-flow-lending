@@ -11,14 +11,12 @@ import { nitro } from "nitro/vite";
 // Nitro (vercel preset) deploys SSR to Vercel; Cloudflare plugin is disabled for that target.
 export default defineConfig({
   cloudflare: false,
+  plugins: [
+    nitro({
+      preset: "vercel",
+    }),
+  ],
   tanstackStart: {
     server: { entry: "server" },
-  },
-  vite: {
-    plugins: [
-      nitro({
-        preset: "vercel",
-      }),
-    ],
   },
 });
